@@ -1,0 +1,285 @@
+/*
+logan  
+2015-08-12
+*/
+
+/* Toolbar */
+#toolbar {
+	width: 100%;
+	min-width: 1160px;
+	background: #f0f0f0;
+	height: 28px;
+	line-height: 28px;
+}
+
+#toolbar .area li {
+	margin-right: 20px;
+	float: left;
+	padding-left: 15px;
+}
+
+#toolbar i {
+	display: block;
+	float: left;
+	margin-right: 3px;
+}
+/*toolbar end */
+#header {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	min-width: 1160px;
+	background: #FFF none repeat scroll 0% 0%;
+}
+
+#header button {
+	background: #32CD32;
+	color: #fff;
+	border: 0px none;
+	letter-spacing: 4px;
+	font-size: 16px;
+	width: 80px;
+	overflow: hidden;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+#cart {
+	padding-right: 38px;
+	position: relative;
+	z-index: 9;
+}
+
+#cart em {
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	background: #ff8080;
+	position: absolute;
+	right: 25px;
+	top: -5px;
+	z-index: 99;
+	text-align: center;
+	color: #FFF;
+}
+
+#seach {
+	width: 562px;
+	height: 60px;
+	vertical-align: middle;
+	position: relative;
+}
+
+#seach input {
+	border-width: 2px 0px 2px 2px;
+	border-style: solid;
+	border-color: #32CD32;
+	width: 480px;
+	font-size: 14px;
+	height: 36px;
+}
+
+/**/
+#seach label {
+	position: absolute;
+	left: 8px;
+	z-index: 1;
+	color: #666;
+	font-size: 14px;
+	color: #c0c0c0;
+	max-width: 80%;
+	overflow: hidden;
+	height: 36px;
+	line-height: 36px;
+}
+
+#seach a {
+	margin-top: 4px;
+	padding: 0px 10px;
+	letter-spacing: 4px;
+	font-size: 12px;
+	border-left: 1px solid #CCC;
+}
+
+#seach a:first-child {
+	border-left: none;
+}
+/*header end */
+
+/*nav start*/
+#nav {
+	width: 100%;
+	min-width: 1160px;
+	background: #F7F6F3;
+	height: 39px;
+}
+
+#category {
+	width: 202px;
+	height: 39px;
+	background: #359939 none repeat scroll 0% 0%;
+	position: relative;
+	z-index: 100;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+#category h3 {
+	font-size: 16px;
+	line-height: 39px;
+	color: #FFF;
+	font-weight: bold;
+	text-align: center;
+	background: transparent url("../images/c_icon.gif") no-repeat scroll
+		20px center;
+}
+
+#category_tree {
+	width: 202px;
+	height: 402px;
+	background: #32CD32;
+	position: absolute;
+	left: 0px;
+	top: 39px;
+	z-index: 100;
+}
+
+#category_tree ul {
+	height: 360px;
+}
+
+#category_tree li {
+	padding: 13px 0px 13px 10px;
+	border-width: 0px 0px 1px 1px;
+	border-style: solid none solid solid;
+	border-color: #006C42 #006C42;
+}
+
+#category_tree li h4 {
+	font-size: 16px;
+	text-align: left;
+	line-height: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #FFF;
+}
+
+#category_tree  p a {
+	color: #FFF;
+	font-size: 14px;
+	width: 90px;
+	height: 18px;
+	line-height: 18px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+#dorpdown_layer {
+	width: 280px;
+	height: 400px;
+	position: absolute;
+	border-width: 1px 1px 1px 0px;
+	border-color: #32CD32 #32CD32;
+	opacity: 0.8;
+	z-index: 100;
+	left: 200px;
+	background: #ececec;
+	border-style: solid solid solid none;
+}
+
+#dorpdown_layer div {
+	display: none;
+}
+
+#dorpdown_layer dl {
+	float: left;
+	padding: 0px 10px;
+	border-bottom: 1px dotted #E8E8E8;
+}
+
+#dorpdown_layer dt {
+	padding: 10px 6px 0px 0px;
+	line-height: 23px;
+	height: 23px;
+	font-weight: bold;
+}
+
+#dorpdown_layer dd {
+	padding: 5px 0px;
+	overflow: hidden;
+}
+
+#dorpdown_layer dd a {
+	padding: 5px 0px;
+	width: 100px;
+	overflow: hidden;
+}
+
+#nav_menu li {
+	color: #3B3A3A;
+	float: left;
+	padding: 0px 30px;
+	line-height: 39px;
+	font-weight: bold;
+}
+
+.nav_hdshop {
+	line-height: 39px;
+	color: #3B3A3A;
+	margin-right: 50px;
+}
+/* bread */
+.bread_crumbs {
+	line_height: 40px;
+	padding: 10px 0px;
+}
+
+.bread_crumbs .icon_btn_vbarrow {
+	margin: 0 3px;
+	width: 6px;
+	height: 7px;
+	background: url(../images/goods_detail/arrowl.gif) no-repeat 0 center;
+	display: inline-block;
+}
+
+/* 底部*/
+#footer {
+	margin-top: 10px;
+	background: #FAFAFA;
+}
+
+#help_center {
+	border-top: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+	padding: 20px 14px;
+}
+
+#help_center dl {
+	float: left;
+	width: 129px;
+	height: 136px;
+	padding-left: 30px;
+	border-right: 1px solid #DFDFDF;
+	overflow: hidden;
+}
+
+#help_center dt {
+	height: 30px;
+	line-height: 30px;
+	color: #333;
+	font-size: 16px;
+}
+
+#help_center dd a {
+	font-size: 14px;
+	color: #666;
+	line-height: 24px;
+}
+
+#footer p {
+	padding: 3px 0px;
+	line-height: 26px;
+	text-align: center;
+}

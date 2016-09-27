@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CART_SHOPPING">
+    <resultMap id="CARTMap" type="com.activelife.common.cart.po.Cart">
+        <id column="CART_ID" property="ord_id" jdbcType="VARCHAR" />
+        <result column="USER_ID" property="user_id" jdbcType="VARCHAR" />
+        <result column="PRODUCT_ID" property="pro_id" jdbcType="VARCHAR" />
+        <result column="PRODUCT_PRICE" property="product_price" jdbcType="DECIMAL" />
+        <result column="PRODUCT_NAME" property="pro_name" jdbcType="VARCHAR" />
+        <result column="PRODUCT_SPECIFY" property="product_standard" jdbcType="VARCHAR" />
+        <result column="PRODUCT_QUANTITY" property="product_num" jdbcType="INTEGER" />
+        <result column="CREATE_DATE" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+	<!-- 添加购物车 -->
+    <insert id="saveCart" parameterType="com.activelife.common.cart.po.Cart">
+    	<selectKey resultType="java.lang.String" keyProperty="ord_id" order="BEFORE">
+            select uuid() as ord_id from dual
+        </selectKey>
+        insert into TOP_USER_SHOP_CART
+        (CART_ID,
+        USER_ID, 
+        PRODUCT_ID,
+        PRODUCT_PRICE,
+        PRODUCT_NAME,
+        PRODUCT_SPECIFY,
+        PRODUCT_QUANTITY,
+        CREATE_DATE)
+        values (#{ord_id,jdbcType=VARCHAR},
+        #{user_id,jdbcType=VARCHAR},
+        #{pro_id,jdbcType=VARCHAR},
+        #{product_price,jdbcType=DECIMAL},
+        #{pro_name,jdbcType=VARCHAR},
+        #{product_standard,jdbcType=VARCHAR},
+        #{product_num,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+   
+    <!-- 根据用户的唯一标识查询 -->
+    <select id="findCartById" resultMap="CARTMap" parameterType="java.lang.String">
+        select * from TOP_USER_SHOP_CART where USER_ID = #{userToken} 
+    </select>
+    
+    <!-- 删除购物车所有商品 -->
+    <delete id="deleteAllCart" parameterType="java.lang.String">
+    	delete from TOP_USER_SHOP_CART where USER_ID = #{userid}
+    </delete>
+    
+    <!-- 根据ID删除购物车商品 -->
+    <delete id="deleteCartById" parameterType="java.lang.String">
+    	delete from TOP_USER_SHOP_CART where CART_ID = #{cartid}
+    </delete>
+</mapper>

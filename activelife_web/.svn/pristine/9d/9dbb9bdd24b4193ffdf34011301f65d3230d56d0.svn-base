@@ -1,0 +1,174 @@
+package com.activelife.web.user.action;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.activelife.common.exception.BusinessException;
+import com.activelife.common.exception.StatusCode;
+import com.activelife.common.user.po.Customer;
+import com.activelife.common.user.vo.CustomerVo;
+import com.activelife.common.utils.MD5;
+import com.activelife.common.vo.ClientMessage;
+import com.activelife.web.base.action.BaseAction;
+import com.activelife.web.user.service.CustomerService;
+import com.activelife.web.utils.FileUpload;
+
+/**
+ * 用户控制器
+ * 
+ * @author zhangpanfeng
+ * 
+ */
+@Controller
+public class CustomerAction extends BaseAction {
+    /**
+     * 注入用户服务
+     */
+    @Autowired
+    private CustomerService customerService;
+
+    @Value("${darren_web.uploadFolder}")
+    private String folderName;
+
+    @Value("${darren_web.headPortraitFieldName}")
+    private String fieldName;
+
+    @RequestMapping(value = "/login")
+    @ResponseBody
+    public Object login(HttpServletRequest reqest, Model model, Customer customer) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cellphone", customer.getCellphone());
+        params.put("password", MD5.md5(customer.getPassword()));
+        customer = customerService.findCustomerByParams(params);
+        if (customer != null) {
+            clientMessage.setMessage("success");
+            reqest.getSession().setAttribute("customer", customer);
+        } else {
+            clientMessage.setMessage("用户名或密码错误");
+        }
+
+        return clientMessage;
+    }
+
+    public String logout(HttpServletRequest reqest, Model model, Customer customer) throws BusinessException {
+        reqest.getSession().removeAttribute("customer");
+        return "";
+    }
+
+    @RequestMapping(value = "/register")
+    public String register(HttpServletRequest reqest, Model model, CustomerVo customerVo) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+        // if (!StringUtil.isEmpty(customerVo.getPassword()) &&
+        // customerVo.getPassword().equals(customerVo.getConfirmPassword())) {
+        // customer.setPassword(MD5.md5(customerVo.getPassword()));
+        // String userId = customerService.saveCustomer(customer);
+        // customer = customerService.findCustomerById(userId);
+        // if (customer != null) {
+        // reqest.getSession().setAttribute("customer", customer);
+        // } else {
+        // clientMessage.setMessage("注册失败！");
+        // }
+        // } else {
+        // clientMessage.setMessage("密码不一致！");
+        // }
+
+        model.addAttribute("clientMessage", clientMessage);
+
+        return "";
+    }
+
+    @RequestMapping(value = "/editCustomer")
+    public String editCustomer(Model model, Customer customer) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+
+        model.addAttribute("clientMessage", clientMessage);
+        return "";
+    }
+
+    @RequestMapping(value = "/editPassword")
+    public String editPassword(Model model, Customer customer) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+
+        model.addAttribute("clientMessage", clientMessage);
+        return "";
+    }
+
+    @RequestMapping(value = "/showUserEditor")
+    public String showUserEditor(Model model, Customer customer) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+
+        model.addAttribute("clientMessage", clientMessage);
+        return "user/userEditor";
+    }
+
+    @RequestMapping(value = "/uploadHeadPortrait")
+    @ResponseBody
+    public Object uploadHeadPortrait(HttpServletRequest req) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+        String filePath = null;
+        try {
+            filePath = FileUpload.uploadFile(req, fieldName, folderName);
+            if (filePath == null) {
+                LOG.info("上传头像失败！");
+                clientMessage.setMessage("上传头像失败！");
+                clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+            } else {
+                clientMessage.addAttribute("url", filePath);
+            }
+        } catch (Exception e) {
+            LOG.info("上传头像失败！");
+            clientMessage.setMessage("上传头像失败！");
+            clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+        }
+
+        return clientMessage;
+    }
+
+    @RequestMapping(value = "/editHeadPortrait")
+    @ResponseBody
+    public Object editHeadPortrait(HttpServletRequest req, CustomerVo customerVo, int x) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+        String filePath = customerVo.getHeadPhoto();
+        String fileName = filePath.substring(filePath.indexOf("/") + 1, filePath.length());
+        Customer dbCustomer = customerService.findCustomerById(customerVo.getCustomerId());
+        if (dbCustomer != null) {
+            try {
+                boolean result = FileUpload.cutImage(req, fileName, folderName, customerVo.getX(), customerVo.getY(),
+                        customerVo.getWidth(), customerVo.getHeight());
+                if (result) {
+                    dbCustomer.setHeadPhoto(filePath);
+                    int num = customerService.updateCustomer(dbCustomer);
+                    if (num != 1) {
+                        LOG.info("上传头像失败！");
+                        clientMessage.setMessage("上传头像失败！");
+                        clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+                    }
+                } else {
+                    LOG.info("上传头像失败！");
+                    clientMessage.setMessage("上传头像失败！");
+                    clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+                }
+            } catch (Exception e) {
+                LOG.info("上传头像失败！");
+                clientMessage.setMessage("上传头像失败！");
+                clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+            }
+        } else {
+            LOG.info("上传头像失败！");
+            clientMessage.setMessage("上传头像失败！");
+            clientMessage.setStatusCode(StatusCode.UPDATE_ERROR);
+        }
+
+        return clientMessage;
+    }
+}

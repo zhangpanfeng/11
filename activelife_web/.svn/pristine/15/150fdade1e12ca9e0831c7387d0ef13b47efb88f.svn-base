@@ -1,0 +1,192 @@
+/*
+
+commnon CSS file 
+logan  
+2015-09-10
+
+
+----------------------------------------------------------------------------------------*/
+.my_cart_d {
+	display: block;
+	border-top: 5px solid #CCC;
+	text-align: center;
+	margin: 30px 0px 0px;
+}
+
+.my_cart_d dl {
+	float: left;
+	position: relative;
+	width: 160px;
+	top: -5px;
+	border-top: 5px solid #CCC;
+}
+
+.my_cart_d dl.done {
+	border-top-color: #CAECB6;
+}
+
+.my_cart_d dl.doing {
+	border-top-color: #7ABD54;
+}
+
+.my_cart_d dt.done {
+	background-color: #CAECB6;
+}
+
+.my_cart_d dt.doing {
+	background-color: #7ABD54;
+}
+
+.my_cart_d dt {
+	position: relative;
+	margin: -15px auto 0px;
+	color: #FFF;
+	font-weight: 700;
+	width: 23px;
+	height: 23px;
+	background-color: #CCC;
+	border-radius: 13px;
+	line-height: 23px;
+}
+
+#cart_list {
+	padding-bottom: 20px;
+	border-left: 1px solid #E8E8E8;
+	border-right: 1px solid #E8E8E8;
+	width: 100%;
+}
+
+.checked_all {
+	margin-top: -1px;
+	vertical-align: middle;
+}
+
+#cart_list th {
+	height: 34px;
+	padding: 0px 1px;
+	font-size: 14px;
+	color: #555;
+	text-align: center;
+	border-top: 1px solid #E8E8E8;
+	border-bottom: 1px solid #E8E8E8;
+	background: #F9F9F9;
+}
+
+#cart_list td {
+	text-align: center;
+	font-size: 14px;
+	color: #555;
+	border-bottom: 1px solid #E8E8E8;
+}
+
+.goodsimg_con {
+	padding: 14px 10px;
+	height: 91px;
+}
+
+.goodsimg_con  dt {
+	float: left;
+	border: 1px solid #E8E8E8;
+	margin-right: 10px;
+}
+
+.goodsimg_con  dd {
+	float: left;
+	padding-top: 13px;
+}
+
+.goodsimg_con .goodsname {
+	width: 300px;
+	height: 40px;
+	margin-bottom: 10px;
+	text-align: left;
+	overflow: hidden;
+	line-height: 20px;
+	font-size: 14px;
+	color: #555;
+}
+
+.goodsimg_con .goodstag {
+	font-size: 14px;
+	text-align: left;
+	margin-bottom: 5px;
+}
+
+.goodsimg_con .tab {
+	padding: 2px 5px;
+	text-align: center;
+	background: #7ABD54;
+	font-size: 12px;
+	color: #FFF;
+}
+
+#cart_list .cart_choose {
+	position: relative;
+	width: 98px;
+	height: 30px;
+	display: inline-block;
+}
+
+.cart_choose a {
+	position: absolute;
+	top: 0px;
+	text-align: center;
+	line-height: 28px;
+	font-family: Arial;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-indent: -9999px;
+	overflow: hidden;
+}
+
+.cart_choose a.reduce {
+	left: 0px;
+	background: transparent url("../images/cart_submit/amountbig.gif")
+		no-repeat scroll 0px 0px;
+}
+
+.cart_choose input {
+	width: 38px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border: 1px solid #DBDBDB;
+}
+
+.cart_choose a.add {
+	right: 0px;
+	background: transparent url("../images/cart_submit/amountbig.gif")
+		no-repeat scroll 0px bottom;
+}
+
+.font_18 {
+	font-size: 18px;
+}
+
+.c_orange {
+	color: #EA5504;
+}
+
+.checkout {
+	background: #F9F9F9;
+	border: 1px solid #E8E8E8;
+	padding: 0px 0px 0px 30px;
+	line-height: 48px;
+	height: 48px;
+	font-size: 14px;
+	color: #999;
+}
+.margin_right30 {
+    margin-right: 30px;
+}
+.checkout .btn_checkout {
+    width: 100px;
+    height: 48px;
+    background: #7ABD54;
+    color: #FFF;
+    font-size: 18px;
+    text-align: center;
+    line-height: 48px;
+    display: inline-block;
+}

@@ -1,0 +1,45 @@
+package com.activelife.web.cart.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.activelife.common.cart.po.Cart;
+import com.activelife.common.exception.BusinessException;
+
+/**
+ * 
+ * @author ljx
+ *
+ */
+public interface ShoppingCarService {
+
+	/**
+	 * 添加购物车
+	 * @param carst
+	 * @return
+	 * @throws BusinessException
+	 */
+	void saveCarst(Cart carst) throws BusinessException;
+	
+	/**
+	 * 查看购物车
+	 * @param userToken
+	 * @return
+	 * @throws BusinessException
+	 */
+	List<Cart> findCarst(Map<String, Object> userTOken) throws BusinessException;
+	
+	/**
+	 * 删除所有商品
+	 * @param userid
+	 * @throws BusinessException
+	 */
+	void deleteAllCart(String userid) throws BusinessException;
+	
+	/**
+	 *  根据ID 删除商品
+	 * @param cartid
+	 * @throws BusinessException
+	 */
+	void deleteCartById(String cartid) throws BusinessException;
+}

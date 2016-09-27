@@ -1,0 +1,150 @@
+/*
+
+commnon CSS file 
+logan  
+2015-08-12
+
+
+----------------------------------------------------------------------------------------*/
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-family: "微软雅黑", Verdana, Arial;
+	line-height: 150%;
+	color: #333;
+	text-align: left;
+	*_background-image: url(about:blank);
+	*_background-attachment: fixed
+}
+
+h1, h2, h3, h4, h5, h6, ul, li, dl, dt, dd, p, form, th, td, img {
+	margin: 0;
+	padding: 0;
+	border: none;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+input, textarea, select, button {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+ul, li, dl, dt, dd {
+	list-style-type: none;
+}
+
+em {
+	font-style: normal
+}
+
+input {
+	outline: none
+}
+
+a {
+	color: #333333;
+	text-decoration: none;
+	outline: none;
+	display: inline-block;
+}
+
+a:hover {
+	color: #359939;
+	text-decoration: none;
+}
+
+area {
+	outline: none;
+}
+
+/* Resetting HTML5! */
+section, article, aside, header, footer, nav,div, dialog, figure {
+	display: block;
+}
+
+[placeholder] {
+	font-family: 'Microsoft yahei';
+}
+
+/*---- Layout
+----------------------------------------------------------------------------------------*/
+.area {
+	width: 1160px;
+}
+
+.f_l {
+	float: left;
+}
+
+.f_r {
+	float: right;
+}
+
+.f_n {
+	float: none !important;
+}
+
+.m_auto_rl {
+	margin: 0 auto;
+}
+
+
+.over_flow {
+	overflow: hidden;
+}
+
+.none {
+	display: none;
+}
+
+.show {
+	display: block ;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	text-align: left ;
+}
+
+.hand {
+	cursor: pointer;
+}
+
+.relative {
+	position: relative;
+	z-index: 9;
+}
+/* clear float */
+.clear {
+	clear: both;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+*+html .clearfix {
+	height: 1%;
+}
+.m_top{
+	margin-top: 20px;
+}
+.b_btm{
+	padding-bottom:3px;
+	border-bottom: 1px dotted #32CD32;
+}

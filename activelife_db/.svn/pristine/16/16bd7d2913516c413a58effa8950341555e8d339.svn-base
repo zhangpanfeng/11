@@ -1,0 +1,39 @@
+package com.activelife.db.cart.dao.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.activelife.common.cart.po.Cart;
+import com.activelife.common.exception.BusinessException;
+import com.activelife.db.base.dao.BaseDao;
+import com.activelife.db.cart.dao.ShopCarstDao;
+
+/**
+ * 
+ * @author liujinxin
+ *
+ */
+@Repository
+public class ShopCarstDaoImpl extends BaseDao implements ShopCarstDao {
+
+	public ShopCarstDaoImpl(){
+		super("CART_SHOPPING");
+	}
+	public void saveCarst(Cart carst) throws BusinessException {
+		super.saveEntity("saveCarst", carst);
+	}
+
+	public List<Cart> findCarst(Map<String, Object> userTOken) throws BusinessException {
+		List<Cart> carst =  super.findEntitysByParams("findCarstById", userTOken);
+		return carst;
+	}
+	public void deleteAllCart(String userid) throws BusinessException {
+		super.deleteEntity("deleteAllCart", userid);
+	}
+	
+	public void deleteCartById(String cartid) throws BusinessException {
+		super.deleteEntity("deleteCartById", cartid);
+	}
+}

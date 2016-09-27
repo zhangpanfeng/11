@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.activelife.web</groupId>
+    <artifactId>activelife_web</artifactId>
+    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>activelife_web Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <dependencies>
+        <!-- 项目依赖，依赖公共包 -->
+        <dependency>
+            <groupId>com.activelife.common</groupId>
+            <artifactId>activelife_common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- 项目依赖，依赖Spring, mybatis框架 -->
+        <dependency>
+            <groupId>com.activelife.framework</groupId>
+            <artifactId>activelife_framework</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>activelife_web</finalName>
+    </build>
+</project>

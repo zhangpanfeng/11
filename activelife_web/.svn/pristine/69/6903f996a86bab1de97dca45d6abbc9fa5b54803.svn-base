@@ -1,0 +1,139 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html >
+<html>
+<head>
+<base target="_blank">
+<meta charset="utf-8">
+<title>态，生态生活，绿色，健康，回归源生态</title>
+
+<meta name="keywords" content="态生活,绿色,源生态,健康生活" />
+<meta name="description" content="态生活,绿色,源生态,共赢健康生活" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="icon" href="favicon.ico" mce_href="favicon.ico"
+	type="image/x-icon">
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/cart_submit.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+<body>
+
+	<!-- toolbar start -->
+	<div id="toolbar">
+		<div class="m_auto_rl area clearfix">
+			<ul class="f_l">
+				<li><i>欢迎来到态生活</i></li>
+				<li><a href="login.jsp">请登录</a></li>
+				<li><a href="http://www.baidu.com">注册</a></li>
+			</ul>
+			<ul class="f_r">
+				<li>健康来自源生态，态生活为您打造生态生活</li>
+				<li><a>手机版</a></li>
+				<li><a>消费者告知书</a></li>
+				<li><a>帮助中心</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- toolbar end -->
+	<!-- header start -->
+	<div id="header" class="m_auto_rl area clearfix">
+		<div id="logo" class="f_l" height="60px">
+			<a href="http://www.baidu.com"> <img alt="" src="images/logo.png"></img>
+			</a>
+		</div>
+		<div class="f_r my_cart_d">
+			<div>
+				<dl class="doing">
+					<dt class="doing">1</dt>
+					<dd>我的购物车</dd>
+				</dl>
+				<dl>
+					<dt>2</dt>
+					<dd>确认订单</dd>
+				</dl>
+				<dl>
+					<dt>3</dt>
+					<dd>成功提交订单</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<!-- cart list -->
+	<div class="m_auto_rl area clearfix">
+		<table id="cart_list" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th width="70">
+						<div>
+							<input name="message" id="checkall" class="checked_all"
+								checked="checked" type="checkbox"> <span>全选</span>
+						</div>
+					</th>
+					<th colspan="2" width="472">商品</th>
+					<th width="140">单价</th>
+					<th width="140">数量</th>
+					<th width="140">小计</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input name="message" checked="checked" value="" type="checkbox"></td>
+					<td colspan="2">
+						<dl class="goodsimg_con">
+							<dt>
+								<a href="http://www.yapingguo.com/item/292546937"><img
+									src="http://p.ypgimg.com/292/546/937/292546937/thumb/cf1a44adb13551d6.jpg"
+									alt="" height="80" width="80"></a>
+							</dt>
+							<dd>
+								<p class="goodsname">
+									<a href="http://www.yapingguo.com/item/292546937">澳佳宝/Blackmores
+										月见草油胶囊190粒 新西兰原产 为女人"那几天"保驾护航 免税免邮</a>
+								</p>
+								<p class="goodstag">
+									<em class="tab">保税直发</em>
+								</p>
+							</dd>
+						</dl>
+					</td>
+					<td>
+						<div class="margin_btm10">￥138.00</div>
+					</td>
+					<td>
+						<div class="cart_choose">
+							<a href="javascript:void(0);" class="reduce">-</a> <input
+								name="qty" value="2" type="text" /> <a
+								href="javascript:void(0);" class="add">+</a>
+
+						</div>
+					</td>
+					<td><strong class="font_18 c_orange">￥276.00</strong></td>
+					<td><a href="javascript:void(0);">删除</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="checkout">
+			<div class="f_l">
+				<input name="message" class="checked_all margin_right30"
+					checked="checked" type="checkbox"> <a
+					href="javascript:void(0);" class="margin_right30">删除</a> <a
+					href="javascript:void(0);" class="margin_right30">继续购物</a>
+			</div>
+			<div class="f_r" id="total">
+				<span class="margin_right30">已选 <strong class="c_orange">1</strong>
+					件商品
+				</span> <span class="margin_right30">合计（不含运费）: <strong
+					class="c_orange font_18">￥252.00</strong></span> <a
+					href="javascript:void(0);" class="btn_checkout" id="SubmitCheckOut">结算</a>
+			</div>
+
+		</div>
+	</div>
+	<jsp:include flush="true" page="footer.jsp"></jsp:include>
+</body>
+</html>

@@ -1,0 +1,138 @@
+package com.activelife.back.order.action;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.activelife.back.base.action.BaseAction;
+import com.activelife.back.order.service.OrderService;
+import com.activelife.back.user.service.SystemUserService;
+import com.activelife.common.base.po.Page;
+import com.activelife.common.constant.CommonEnum;
+import com.activelife.common.exception.BusinessException;
+import com.activelife.common.exception.StatusCode;
+import com.activelife.common.order.po.Order;
+import com.activelife.common.order.vo.OrderVo;
+import com.activelife.common.utils.DateUtil;
+import com.activelife.common.utils.StringUtil;
+import com.activelife.common.vo.ClientMessage;
+
+/**
+ * 订单控制器
+ * 
+ * @author zhangpanfeng
+ * 
+ */
+@Controller
+public class OrderAction extends BaseAction {
+    private static final String URL_PREFIX = "/order";
+    private static final String ORDER_EDIT_PAGE = URL_PREFIX + "/orderEditor";
+    private static final String ORDER_DETAIL_PAGE = URL_PREFIX + "/orderDetail";
+    private static final String ORDER_LIST_PAGE = URL_PREFIX + "/orderList";
+    /**
+     * 注入订单服务
+     */
+    @Autowired
+    private OrderService orderService;
+    /**
+     * 注入用户服务
+     */
+    @Autowired
+    private SystemUserService systemUserService;
+
+    @RequestMapping(value = "/showOrderDetail")
+    public String showOrderDetail(Model model, Order order) throws BusinessException {
+        ClientMessage clientMessage = new ClientMessage();
+        String orderId = order.getOrderId();
+        order = orderService.findOrderById(orderId);
+        if (order != null) {
+            OrderVo orderVo = this.changePoToVo(order);
+            model.addAttribute("order", orderVo);
+        } else {
+            LOG.info("查询订单失败！" + orderId);
+            clientMessage.setMessage("查询订单失败！");
+            clientMessage.setStatusCode(StatusCode.READ_ERROR);
+        }
+        model.addAttribute("clientMessage", clientMessage);
+
+        return ORDER_DETAIL_PAGE;
+    }
+
+    @RequestMapping(value = "/showOrderList")
+    public String showOrderList(Model model, Order order) throws BusinessException {
+        // 准备订单状态信息
+        this.prapareOrderStatus(model);
+
+        return ORDER_LIST_PAGE;
+    }
+
+    @RequestMapping(value = "/listOrder")
+    public String listOrder(Model model, OrderVo orderVo, Page page) throws BusinessException {
+        page.setUrl("listOrder");
+        Map<String, Object> params = getSearchParams(page);
+        params.put("orderCode", orderVo.getOrderCode());
+        params.put("status", orderVo.getStatus());
+        params.put("paymentStatus", orderVo.getPaymentStatus());
+        params.put("createTimeBegin", orderVo.getCreateTimeBegin());
+        params.put("createTimeEnd", orderVo.getCreateTimeEnd());
+
+        List<Order> orderList = orderService.findOrdersByParams(params);
+        int count = orderService.getTotalCount(params);
+        page.setTotalSize(count);
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("page", page);
+
+        // 准备订单状态信息
+        this.prapareOrderStatus(model);
+
+        return ORDER_LIST_PAGE;
+    }
+
+    /**
+     * 给页面准备订单的状态信息
+     * 
+     * @param model
+     */
+    private void prapareOrderStatus(Model model) {
+        // 准备订单状态信息
+        Map<String, String> orderStatus = new HashMap<String, String>();
+        CommonEnum.ORDER_STATUS[] statusArray = CommonEnum.ORDER_STATUS.values();
+        for (CommonEnum.ORDER_STATUS status : statusArray) {
+            orderStatus.put(status.getCode(), status.getCnName());
+        }
+        model.addAttribute("orderStatus", orderStatus);
+
+        // 准备订单状态信息
+        Map<String, String> paymentStatus = new HashMap<String, String>();
+        CommonEnum.PAYMENT_STATUS[] paymentStatusArray = CommonEnum.PAYMENT_STATUS.values();
+        for (CommonEnum.PAYMENT_STATUS status : paymentStatusArray) {
+            paymentStatus.put(status.getCode(), status.getCnName());
+        }
+        model.addAttribute("paymentStatus", paymentStatus);
+    }
+
+    /**
+     * 为详情页准备数据
+     * 
+     * @param order
+     * @return
+     */
+    private OrderVo changePoToVo(Order order) {
+        OrderVo orderVo = new OrderVo();
+        orderVo.setOrderId(order.getOrderId());
+        orderVo.setOrderCode(order.getOrderCode());
+        orderVo.setPrice(StringUtil.getValue(order.getPrice()));
+        orderVo.setPaymentStatus(order.getPaymentStatus());
+        orderVo.setStatus(order.getStatus());
+        orderVo.setCreateTime(DateUtil.formatDate(order.getCreateTime(), DateUtil.HHMMSS_DATE_FORMAT));
+        orderVo.setUpdateTime(DateUtil.formatDate(order.getUpdateTime(), DateUtil.HHMMSS_DATE_FORMAT));
+        orderVo.setDeleteTime(DateUtil.formatDate(order.getDeleteTime(), DateUtil.HHMMSS_DATE_FORMAT));
+
+        return orderVo;
+    }
+}

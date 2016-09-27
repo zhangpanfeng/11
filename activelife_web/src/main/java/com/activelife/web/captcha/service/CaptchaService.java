@@ -1,0 +1,25 @@
+package com.activelife.web.captcha.service;
+
+import com.activelife.common.exception.BusinessException;
+
+/**
+ * 
+ * @author liujinxin
+ *
+ */
+public interface CaptchaService {
+
+	/**
+	 * 随机生成 6 位数的验证码
+	 * @return
+	 * @throws BusinessException
+	 */
+	int NextInt() throws BusinessException;
+	
+	/**
+	 * 判断是否为合法手机号码
+	 * @return
+	 * @throws BusinessException
+	 */
+	boolean ismoblie(String moblie) throws BusinessException;
+}

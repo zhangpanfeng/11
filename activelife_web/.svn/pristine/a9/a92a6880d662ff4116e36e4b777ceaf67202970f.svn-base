@@ -1,0 +1,154 @@
+/*
+logan  
+2015-08-12
+*/
+body {
+	background: url("../images/login/login_reg_bg.jpg") repeat scroll 0% 0%;
+}
+
+#header {
+	background: #fff;
+}
+
+#header h1 {
+	line-height: 60px;
+	font-size: 16px;
+}
+
+#login_reg {
+	margin-top: 100px;
+	width: 900px;
+	overflow: hidden;
+	width: 900px;
+}
+
+.lr_left {
+	width: 500px;
+	height: 500px;
+	overflow: hidden;
+}
+
+.lr_right {
+	width: 330px;
+	padding: 20px 30px;
+	background: #FFF;
+	overflow: hidden;
+}
+
+.lr_right h2 {
+	font-size: 26px;
+	color: #333;
+	line-height: 26px;
+}
+
+.lr_right a {
+	font-size: 16px;
+	color: #359939;
+	padding-left: 21px;
+}
+
+.lr_right .title {
+	margin-bottom: 50px;
+}
+
+.con {
+	width: 300px;
+	position: relative;
+	z-index: 1;
+}
+
+.con .item {
+	position: relative;
+	z-index: 1;
+	width: 300px;
+	height: 34px;
+	margin-bottom: 30px;
+}
+
+.con .lr_label {
+	position: absolute;
+	z-index: 3;
+	top: 0px;
+	left: 0px;
+	width: 34px;
+	height: 34px;
+	background: transparent url("../images/login/formicon.gif") no-repeat;
+}
+
+.con .name_label {
+	background-position: center 8px;
+}
+
+.con .pmd_label {
+	background-position: center -32px;
+}
+
+.con .itxt {
+	line-height: 20px;
+	height: 20px;
+	border: 1px solid #E8E8E8;
+	width: 257px;
+	float: none;
+	overflow: hidden;
+	font-size: 14px;
+	padding: 7px 0px 7px 34px;
+	color: #666;
+}
+
+.con .itxt_core {
+	width: 88px;
+	height: 20px;
+	margin-right: 8px;
+	line-height: 20px;
+	border: 1px solid #E8E8E8;
+	overflow: hidden;
+	font-size: 14px;
+	padding: 7px 0px 7px 3px;
+	color: #666;
+}
+
+.con .itxt_core_l {
+	width: 128px;
+}
+
+.con .core_btn {
+	border: 1px solid #E8E8E8;
+	background: #FBFBFB none repeat scroll 0% 0%;
+	color: #999;
+	font-size: 14px;
+	line-height: 34px;
+	text-align: center;
+	width: 140px;
+	height: 36px;
+}
+
+#randcode {
+	width: 96px;
+	height: 36px;
+	background-color: #ff8000
+}
+
+.con .item a {
+	padding-top: 7px;
+	font-size: 12px;
+}
+
+#re_me {
+	vertical-align: text-bottom;
+	margin: 0px 5px 2px 5px;
+}
+
+.btn_green {
+	margin: 5px 0px;
+	width: 300px;
+	height: 44px;
+	background: #359939;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 16px;
+	border: 0px none;
+	text-align: center;
+	line-height: 46px;
+	cursor: pointer;
+	width: 300px;
+}

@@ -1,0 +1,282 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>添加报酬</title>
+
+
+<%-- 引入菜单插件 --%>
+<script type="text/javascript"
+	src="<c:url value="/easyui/jquery.jdirk.js"/>"></script>
+<link
+	href="<c:url value="/easyui/jeasyui-extensions/jeasyui.extensions.css"/>"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<c:url value="/easyui/jeasyui-extensions/jeasyui.extensions.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/easyui/jeasyui-extensions/jeasyui.extensions.menu.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/easyui/datagrid-detailview.js"/>"></script>
+
+<script type="text/javascript">
+	var row_id = 0;
+	//row-selected
+	function addClick() {
+		$("div[class^='datagrid-view'] tr").click(function() {
+			row_id = $(this).children("[field='pid']").text();
+			$("tr[id^='datagrid-row-r']").removeClass("datagrid-row-selected");
+
+		});
+
+	}
+	var grid;
+
+	var countPay = function() {
+		var row = $('#projecttable').datagrid('getSelected');
+
+		var dialog = parent.sy.modalDialog({
+			title : '报酬统计',
+			iconCls : 'ext-icon-pencil',
+			url : sy.contextPath + '/management/redirect?p=paycount/countPay',
+			width : 660,
+			height : 540,
+
+		});
+
+	}
+	var exporterExcel = function() {
+
+		var createtime = $("#createtimeid").combobox('getValue');
+		var department = $("#departmentid").combobox('getValue');
+
+		dialog = parent.sy.modalDialog({
+			title : '导出excel表格',
+			iconCls : 'ext-icon-pencil',
+			url : '../pay/exporterExcel?createtime=' + createtime
+					+ '&department=' + department,
+			width : 260,
+			height : 180,
+
+		});
+	}
+	$(function() {
+
+		grid = $('#projecttable')
+				.datagrid(
+						{
+							title : '报酬统计',
+							view : detailview,//注意1
+							url : '<c:url value="/pay/addPayList"/>',
+							striped : true,
+							rownumbers : true,
+							pagination : true,
+							singleSelect : true,
+							idField : 'id',
+							sortName : 'seq',
+							sortOrder : 'asc',
+							frozenColumns : [ [] ],
+							columns : [ [ {
+								width : '460',
+								title : '项目名称',
+								field : 'name',
+								halign : 'center',
+								sortable : true
+							}, {
+								width : '250',
+								title : '开始时间',
+								field : 'createtime',
+								halign : 'center',
+								sortable : true
+							}, {
+								width : '150',
+								title : '部门',
+								field : 'department',
+								halign : 'center',
+								sortable : true
+							}, {
+								width : '80',
+								title : '规模',
+								field : 'size',
+								halign : 'center',
+								sortable : true
+							}, {
+								width : '150',
+								title : '预计报酬',
+								field : 'paysum',
+								halign : 'center',
+								sortable : true
+							} ] ],
+							toolbar : '#toolbar',
+							onBeforeLoad : function(param) {
+								parent.$.messager.progress({
+									text : '数据加载中....'
+								});
+
+							},
+							onLoadSuccess : function(data) {
+								$('.iconImg').attr('src', sy.pixel_0);
+								parent.$.messager.progress('close');
+								count_paysum();
+							},
+
+							detailFormatter : function(index, row) {//注意2  
+
+								return '<div style="padding:2px"><table id="ddv-' + index + '"></table></div>';
+							},
+							onExpandRow : function(index, row) {//注意3  
+								grids = $('#ddv-' + index)
+										.datagrid(
+												{
+													url : '../pay/getPayByName?name='
+															+ row.name,
+													fitColumns : true,
+													singleSelect : true,
+													height : 'auto',
+													columns : [ [ {
+														field : 'sid',
+														title : '项目编号'
+													}, {
+														width : '150',
+														title : '开始时间',
+														field : 'start_time',
+														halign : 'center',
+														sortable : true
+													}, {
+														width : '150',
+														title : '截止时间',
+														field : 'end_time',
+														halign : 'center',
+														sortable : true
+													}, {
+														width : '80',
+														title : '日均报酬',
+														field : 'pay',
+														halign : 'center',
+														sortable : true
+													}, {
+														width : '300',
+														title : '预计报酬',
+														field : 'paysum',
+														halign : 'center',
+														sortable : true
+													}, {
+														width : '100',
+														title : '报酬方式',
+														field : 'paytype',
+														halign : 'center',
+														sortable : true,
+
+													}, {
+														width : '150',
+														title : '统计日期',
+														field : 'paytime',
+														halign : 'center',
+														sortable : true
+													} ] ],
+													onResize : function() {
+														$('#acquisitionTab')
+																.datagrid(
+																		'fixDetailRowHeight',
+																		index);
+													},
+													onLoadSuccess : function() {
+														setTimeout(
+																function() {
+																	$(
+																			'#acquisitionTab')
+																			.datagrid(
+																					'fixDetailRowHeight',
+																					index);
+																}, 0);
+
+														addClick();
+													}
+												});
+								$('#acquisitionTab').datagrid(
+										'fixDetailRowHeight', index);
+							}
+						});
+
+	});
+
+	function serach() {
+		$('#projecttable').datagrid('loadData', {
+			total : 0,
+			rows : []
+		});
+		var createtime = $("#createtimeid").combobox('getValue');
+		var department = $("#departmentid").combobox('getValue');
+
+		$('#projecttable').datagrid('reload', {
+			'createtime' : createtime,
+			'departmentid' : department
+		});
+		$("tr[id^='datagrid-row-r']").removeClass("datagrid-row-selected");
+	}
+
+	function count_paysum() {
+		var $aa = $("td[field='paysum']");
+		var count = 0;
+		$aa.each(function(index, element) {
+			var paysum = parseFloat(($(element).text()));
+			if (paysum > 0) {
+				if (index > 0) {
+
+					count = count + paysum;
+				}
+			}
+
+		})
+		$("#all_count_paysum").text(count + "￥").css({
+			"color" : "red",
+			"font-size" : "16px",
+		});
+		$("#sumCount").text("当前报酬总计:").css({
+			"color" : "black",
+			"font-size" : "16px",
+		});
+	}
+</script>
+</head>
+
+<body class="easyui-layout" data-options="fit:true,border:false">
+	<div id="toolbar" style="display: none;">
+		<table>
+			<tr>
+				<td>开始日期:<input id="createtimeid" name="createtime"
+					class="easyui-datebox" type="text"></td>
+
+				<td>部门:<input id="departmentid" name="department"
+					class="easyui-combobox" editable="false"
+					data-options="url:'<c:url value="/department/departmentCombox?flag=true"/>',valueField:'departmentid',textField:'departmentname',panelHeight:'auto'" /></td>
+				<td width="100"><a href="javascript:void(0)"
+					onclick="serach();" class="easyui-linkbutton"
+					iconCls="ext-icon-search">查询</a></td>
+
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><a href="javascript:void(0);" class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'ext-icon-page_excel'"
+					onclick="exporterExcel();">导出excel </a></td>
+				<td><div class="datagrid-btn-separator"></div></td>
+				<td width="500"><a href="javascript:void(0);"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'ext-icon-report'"
+					onclick="countPay();">报酬统计</a></td>
+				<td id="sumCount"></td>
+				<td><div id="all_count_paysum"></div></td>
+
+			</tr>
+			</tr>
+		</table>
+	</div>
+
+	<div data-options="region:'center',fit:true,border:false">
+		<table id="projecttable" data-options="fit:true,border:false"></table>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+package com.activelife.back.user.action;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.activelife.back.user.service.CustomerService;
+import com.activelife.common.base.po.Page;
+import com.activelife.common.exception.BusinessException;
+import com.activelife.common.user.po.Customer;
+
+/**
+ * 用户控制器
+ * 
+ * @author zhangpanfeng
+ * 
+ */
+@Controller
+public class CustomerAction {
+    /**
+     * 注入用户服务
+     */
+    @Autowired
+    private CustomerService customerService;
+
+    @RequestMapping(value = "/findCustomerList")
+    public String findCustomerList(Model model, Customer customer, Page page) throws BusinessException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        List<Customer> customerList = customerService.findCustomersByParams(params);
+        model.addAttribute("customerList", customerList);
+
+        return "/customerList";
+    }
+}

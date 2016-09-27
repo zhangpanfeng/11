@@ -1,0 +1,50 @@
+package com.activelife.db.cart.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.activelife.common.cart.po.Cart;
+import com.activelife.common.exception.BusinessException;
+
+/**
+ * 购物车接口
+ * 
+ * @author liujinxin
+ * 
+ */
+public interface ShopCartDao {
+
+    /**
+     * 添加购物车
+     * 
+     * @param cart
+     * @return
+     * @throws BusinessException
+     */
+    void saveCart(Cart cart) throws BusinessException;
+
+    /**
+     * 查看购物车
+     * 
+     * @param userToken
+     * @return
+     * @throws BusinessException
+     */
+    List<Cart> findCart(Map<String, Object> userTOken) throws BusinessException;
+
+    /**
+     * 删除所有商品
+     * 
+     * @param userid
+     * @throws BusinessException
+     */
+    void deleteAllCart(String userid) throws BusinessException;
+
+    /**
+     * 根据ID 删除商品
+     * 
+     * @param cartid
+     * @throws BusinessException
+     */
+    void deleteCartById(String cartid) throws BusinessException;
+}

@@ -1,0 +1,231 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<script src="js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	 $(function(){
+		$.ajax({
+			url: "${pageContext.request.contextPath }/allClassfily.do",
+			type: "POST",
+			success:function(date){
+				var j = 1;
+				var l = 1;
+				var ul = "";
+				var a = "";
+				var divson = "";
+				var dd = "";
+				
+				for (var i = 0; i < date.length; i++) {
+					if(date[i].proClassfilyParentId == null){
+						for (var k = 0; k < date.length; k++) {
+							if(date[k].proClassfilyParentId != null){
+								if(date[i].proClassfilyCode == date[k].proClassfilyParentId){
+									a += "<a href='" + date[k].proClassfilyId + "'>" + date[k].proClassfilyName + "</a>";
+								}
+							}
+						}
+						ul += "<li id=\"category_item" + j + "\"><h4>" + date[i].proClassfilyName + "</h4><p>" +
+						a + "</p></h4></li>";
+						a = "";
+						j++;
+					}else{
+						for (var k = 0; k < date.length; k++) {
+							if(date[k].proClassfilyParentId != null){
+								if(date[i].proClassfilyCode == date[k].proClassfilyParentId){
+									dd += "<a href=\"" + date[k].proClassfilyId + "\">" + date[k].proClassfilyName + "</a>";
+								}
+							}
+						}
+						if(dd != ""){
+							divson += "<div id=\"layer_item" + l + "\" class=\"clearfix\"><dl><dt>" + date[i].proClassfilyName + "</dt><dd>" + dd + "</dd></dl></div>";
+							l++;
+						}
+						dd = "";
+					}
+				}
+				document.getElementById("category_tree").innerHTML = "<ul>" + ul + "</ul>";
+				document.getElementById("dorpdown_layer").innerHTML = divson;
+			},
+			error : function (XMLHttpRequest, textStatus, errorThrown) {
+				alert(XMLHttpRequest + "__" +textStatus + "__" + errorThrown);
+			}
+		});
+		
+	/* 	$.ajax({
+			 url: "${pageContext.request.contextPath }/getCarInfo.do",
+			 type: "POST",
+			 success:function(date){
+				alert(date);
+			},
+			error : function (XMLHttpRequest, textStatus, errorThrown) {
+				alert(XMLHttpRequest + "__" +textStatus + "__" + errorThrown);
+			}
+		});
+	});
+	 
+	 
+	$('#category_tree').on('click','#category_tree li',function(){
+		alert("1111");
+		$(this).show();
+		*/
+	}); 
+</script>
+<!-- toolbar start -->
+<div id="toolbar">
+	<div class="m_auto_rl area clearfix">
+		<ul class="f_l">
+			<li><i>欢迎来到态生活</i></li>
+			<li><a href="login.jsp">请登录</a></li>
+			<li><a href="http://www.baidu.com">注册</a></li>
+		</ul>
+		<ul class="f_r">
+			<li>健康来自源生态，态生活为您打造生态生活</li>
+			<li><a>手机版</a></li>
+			<li><a>消费者告知书</a></li>
+			<li><a>帮助中心</a></li>
+		</ul>
+	</div>
+</div>
+<!-- toolbar end -->
+<!-- header start -->
+<div id="header" class="m_auto_rl area clearfix">
+	<div id="logo" class="f_l" height="60px">
+		<a href="http://www.baidu.com"> <img alt="" src="images/logo.png"></img>
+		</a>
+	</div>
+	<div id="cart" class="f_r">
+		<button>购物车</button>
+		<em>2</em>
+	</div>
+	<div id="seach" class="m_auto_rl">
+		<input class="f_l" type="text" />
+		<button class="f_l">搜索</button>
+		<label id="seach_placeholder">态生活</label>
+		<div>
+			<a href="javascript:void(0);">食疗</a><a href="javascript:void(0);">医疗</a>
+			<a href="javascript:void(0);">食疗</a><a href="javascript:void(0);">医疗</a>
+		</div>
+	</div>
+</div>
+<!-- header end -->
+<!-- nav start -->
+<div id="nav">
+	<div class="m_auto_rl area clearfix">
+		<div id="category" class="f_l">
+			<h3>全部分类</h3>
+			<div id="category_tree"></div>
+			<div id="dorpdown_layer" class="none">
+				<div id="layer_item1" class="clearfix">
+					<dl>
+						<dt>矿物元素</dt>
+						<dd>
+							<a>清火宝AD钙颗粒</a><a>补钙产品氨基酸高钙片</a>
+						</dd>
+
+					</dl>
+					<dl>
+						<dt>中草药</dt>
+						<dd>
+							<a>人参</a><a>灵芝</a><a>冬虫夏草</a>
+						</dd>
+
+					</dl>
+					<dl>
+						<dt>B族维生素</dt>
+						<dd>
+							<a>Β-胡萝卜素</a><a>维生素B6</a> <a>番茄红素</a>
+						</dd>
+
+					</dl>
+					<dl>
+						<dt>褪黑素</dt>
+						<dd>
+							<a>褪黑素胶囊</a> <a>轻易眠</a>
+						</dd>
+
+					</dl>
+				</div>
+				<div id="layer_item2" class="clearfix">
+					<dl>
+						<dt>辅助睡眠</dt>
+						<dd>
+							<a>洗脚盆</a><a>按摩器</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>缓解压力</dt>
+						<dd>
+							<a>颈部按摩器</a><a>头部按摩器</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>血液循环</dt>
+						<dd>
+							<a>血气循环器</a><a>托玛琳枕头</a>
+						</dd>
+					</dl>
+				</div>
+				<div id="layer_item3" class="clearfix">
+					<dl>
+						<dt>
+							<a>饮食建议</a>
+						</dt>
+						<dd>
+							<a>饮食建议</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a>饮食定制</a>
+						</dt>
+						<dd>
+							<a>饮食定制</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a>专家顾问</a>
+						</dt>
+						<dd>
+							<a>专家顾问</a>
+						</dd>
+					</dl>
+				</div>
+				<div id="layer_item4" class="clearfix">
+					<dl>
+						<dt>
+							<a>智能手环</a>
+						</dt>
+						<dd>
+							<a>智能手环</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a>智能闹钟</a>
+						</dt>
+						<dd>
+							<a>智能闹钟</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<a>智能枕头</a>
+						</dt>
+						<dd>
+							<a>智能枕头</a>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<ul id="nav_menu" class="f_l">
+			<li><a href="javascript:void(0);">首页</a></li>
+			<li><a href="javascript:void(0);">知名品牌</a></li>
+			<li><a href="javascript:void(0);">健康知识</a></li>
+			<li><a href="javascript:void(0);">绿色食材</a></li>
+		</ul>
+		<a class="f_r nav_hdshop" href="javascript:void(0);">好友邀请</a> <a
+			class="f_r nav_hdshop" href="javascript:void(0);">好友邀请</a>
+	</div>
+</div>
+
